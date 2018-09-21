@@ -1,0 +1,38 @@
+//---------------------------------------------------------------------------
+#include <stdio.h>
+typedef int bool;
+#include "K8055D.h"
+#pragma hdrstop
+//---------------------------------------------------------------------------
+#pragma argsused
+int main(int argc, char* argv[])
+{
+ int led=0x01;
+ int temps=1;
+
+ int h = OpenDevice(0);
+ if (h==-1)
+ printf("echec connexion");
+ if (h==0)
+ {
+  printf("succès connexion\n");
+  while(1){
+   do{
+    SetDigitalChannel(led);
+    sleep(temps);
+    ClearDigitalChannel(led);
+    led=led+1;
+    }
+   while(led!=0x08);
+   do{
+    SetDigitalChannel(led);
+    sleep(temps);
+    ClearDigitalChannel(led);
+    led=led-1;
+    }
+   while(led!=0x01);
+   }
+  }
+return 0;
+}
+//---------------------------------------------------------------------------
